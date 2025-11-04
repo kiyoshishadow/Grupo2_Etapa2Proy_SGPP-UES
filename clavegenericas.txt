@@ -1,0 +1,14 @@
+claves genéricas;
+
+Administrador:
+
+Usuario: admin
+Contraseña: admin123
+Docente:
+
+Usuario: docente
+Contraseña: docente123
+Estudiante:
+
+Usuario: estudiante
+Contraseña: estudiante123
