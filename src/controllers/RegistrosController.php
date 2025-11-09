@@ -36,12 +36,24 @@ switch ($action) {
         exit;
 
     // Estudiante: ver mis inscripciones
-    case 'mis_registros':
-        check_session(['Estudiante']);
-        $estudiante_id = $_SESSION['estudiante_id'] ?? 1;
-        $registros = $registroM->misRegistros($estudiante_id);
-        include __DIR__ . '/../../templates/estudiante/mis_registros.php';
-        break;
+
+case 'mis_registros':
+    check_session(['Estudiante']);
+    $estudiante_id = $_SESSION['estudiante_id'] ?? 1;
+
+    // 1) Registros del estudiante
+    $registros = $registroM->misRegistros($estudiante_id);
+
+    // 2) Resultados por registro (para mostrar lo subido)
+    require_once __DIR__ . '/../models/ResultadoModel.php';
+    $resultadoM = new ResultadoModel($pdo);
+    $resultadosPorRegistro = [];
+    foreach ($registros as $r) {
+        $resultadosPorRegistro[(int)$r['id']] = $resultadoM->porRegistro((int)$r['id']);
+    }
+
+    include __DIR__ . '/../../templates/estudiante/mis_registros.php';
+    break;
 
     // Docente: ver postulantes a una práctica
     case 'postulantes':
