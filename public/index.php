@@ -74,6 +74,12 @@ switch ($page) {
         require_once __DIR__ . '/../src/controllers/RegistrosController.php';
         break;
 
+        case 'postulantes':
+    // Docente/Admin: ver postulantes de una práctica
+    $_GET['action'] = 'postulantes';
+    require_once __DIR__ . '/../src/controllers/RegistrosController.php';
+    break;
+
     case 'subir_resultado':
         require_once __DIR__ . '/../src/controllers/ResultadosController.php';
         break;

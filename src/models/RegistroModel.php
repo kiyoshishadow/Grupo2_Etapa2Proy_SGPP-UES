@@ -17,4 +17,18 @@ class RegistroModel {
               WHERE rp.practica_id=?";
         $st=$this->pdo->prepare($sql); $st->execute([$practica_id]); return $st->fetchAll();
     }
+
+    public function inscribirSiNoExiste(int $practica_id, int $estudiante_id): bool {
+    // Asumiendo índice único (practica_id, estudiante_id). Si no existe, no falla.
+    $st = $this->pdo->prepare(
+        "INSERT INTO registro_practica (practica_id, estudiante_id)
+         SELECT ?, ? FROM DUAL
+         WHERE NOT EXISTS (
+           SELECT 1 FROM registro_practica
+           WHERE practica_id = ? AND estudiante_id = ?
+         )"
+    );
+    return $st->execute([$practica_id, $estudiante_id, $practica_id, $estudiante_id]);
+}
+
 }

@@ -54,4 +54,16 @@ class PracticaModel {
         $st=$this->pdo->prepare("DELETE FROM practica WHERE id = ?");
         return $st->execute([$id]);
     }
+
+    public function disponiblesParaEstudiante(): array {
+    // Prácticas activas que aún no han cerrado
+    $sql = "SELECT p.id, p.titulo, p.descripcion, p.fecha_fin AS fecha_limite,
+                   d.nombre_completo AS docente
+            FROM practica p
+            JOIN docente d ON d.id = p.docente_id
+            WHERE p.estado = 'activa' AND (p.fecha_fin IS NULL OR p.fecha_fin >= CURRENT_DATE())
+            ORDER BY p.fecha_fin IS NULL, p.fecha_fin ASC";
+    return $this->pdo->query($sql)->fetchAll();
+}
+
 }

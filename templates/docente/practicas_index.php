@@ -7,11 +7,17 @@
   <tr>
     <th>Título</th>
     <th>Fecha límite</th>
+    <th>Acciones</th>
   </tr>
   <?php foreach ($practicas as $p): ?>
-    <tr>
-      <td><?= htmlspecialchars($p['titulo']) ?></td>
-      <td><?= $p['fecha_fin'] ? htmlspecialchars($p['fecha_fin']) : '-' ?></td>
-    </tr>
+  <tr>
+    <td><?= htmlspecialchars($p['titulo']) ?></td>
+    <td><?= htmlspecialchars($p['fecha_limite'] ?? '-') ?></td>
+    <td>
+      <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=postulantes&practica_id=<?= (int)$p['id'] ?>">
+        Ver postulantes
+      </a>
+    </td>
+  </tr>
   <?php endforeach; ?>
 </table>
