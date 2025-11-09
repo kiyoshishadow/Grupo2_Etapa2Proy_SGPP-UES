@@ -16,6 +16,7 @@
     <td>
       <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=postulantes&practica_id=<?= (int)$p['id'] ?>">
         Ver postulantes
+        <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=resultados_practica&practica_id=<?= $p['id'] ?>">Ver resultados</a>
       </a>
     </td>
   </tr>

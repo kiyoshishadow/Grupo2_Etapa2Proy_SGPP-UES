@@ -84,6 +84,17 @@ switch ($page) {
         require_once __DIR__ . '/../src/controllers/ResultadosController.php';
         break;
 
+            // --- Docente: ver resultados y calificar ---
+   case 'resultados_practica':
+    require_once __DIR__ . '/../src/controllers/EvaluacionesController.php';
+    break;
+
+    case 'calificar_resultado':
+        $_GET['action'] = 'calificar';
+        require_once __DIR__ . '/../src/controllers/EvaluacionesController.php';
+        break;
+
+
     default:
         http_response_code(404);
         echo "Página no encontrada";
