@@ -29,33 +29,33 @@
         <td><?= htmlspecialchars($r['fecha_postulacion'] ?? '-') ?></td>
 
         <!-- Subida de archivo -->
-        <td style="min-width:320px;">
+        <td style="min-width:340px;">
           <form method="post"
                 action="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=subir_resultado"
                 enctype="multipart/form-data">
             <input type="hidden" name="registro_id" value="<?= (int)$r['id'] ?>">
             <input type="file"   name="archivo" required>
-            <input type="text"   name="comentario" placeholder="Comentario (opcional)" style="width:160px;">
+            <input type="text"   name="comentario" placeholder="Comentario (opcional)" style="width:170px;">
             <button type="submit">Enviar</button>
           </form>
         </td>
 
-        <!-- Resultados ya subidos -->
+        <!-- Resultados ya subidos + estado de envío -->
         <td>
-          <?php
-            $items = $resultadosPorRegistro[(int)$r['id']] ?? [];
-            if (empty($items)):
-          ?>
+          <?php if (empty($r['resultados'])): ?>
             <em>Aún no subiste resultados.</em>
+            <div style="color:#b00;margin-top:4px;">Estado: <?= htmlspecialchars($r['estado_envio']) ?></div>
           <?php else: ?>
+            <div style="margin-bottom:6px;">
+              Estado: <strong><?= htmlspecialchars($r['estado_envio']) ?></strong>
+            </div>
             <ul style="margin:0;padding-left:18px;">
-              <?php foreach ($items as $it): ?>
+              <?php foreach ($r['resultados'] as $it): ?>
                 <li>
                   <a href="<?= htmlspecialchars($it['ruta_archivo']) ?>" target="_blank">Archivo</a>
                   <?php if (!empty($it['comentario'])): ?>
                     — <?= htmlspecialchars($it['comentario']) ?>
                   <?php endif; ?>
-                  <br>
                   <small>(<?= htmlspecialchars($it['fecha_subida']) ?>)</small>
                 </li>
               <?php endforeach; ?>
@@ -63,23 +63,14 @@
           <?php endif; ?>
         </td>
 
-        <!-- ✅ NOTA DEL DOCENTE -->
+        <!-- Nota del docente -->
         <td>
-          <?php
-          $evals = $evaluaciones[(int)$r['id']] ?? [];
-          if (empty($evals)):
-          ?>
+          <?php if ($r['nota_docente'] === null): ?>
             <em>Aún sin calificación</em>
-          <?php else: 
-            // tomar la última calificación
-            $ultima = $evals[0];
-          ?>
-            <strong><?= htmlspecialchars($ultima['calificacion']) ?></strong><br>
-            <small><?= htmlspecialchars($ultima['observacion']) ?></small><br>
-            <small><em><?= htmlspecialchars($ultima['fecha_eval']) ?></em></small>
+          <?php else: ?>
+            <strong><?= htmlspecialchars($r['nota_docente']) ?></strong>
           <?php endif; ?>
         </td>
-
       </tr>
     <?php endforeach; ?>
 
