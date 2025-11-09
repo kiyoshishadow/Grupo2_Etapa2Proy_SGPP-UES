@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/session_check.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../models/PracticaModel.php';
 require_once __DIR__ . '/../models/RegistroModel.php';
+require_once __DIR__ . '/../models/ResultadoModel.php'; 
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -39,18 +40,18 @@ switch ($action) {
 
 case 'mis_registros':
     check_session(['Estudiante']);
+
     $estudiante_id = $_SESSION['estudiante_id'] ?? 1;
 
-    // 1) Registros del estudiante
     $registros = $registroM->misRegistros($estudiante_id);
 
-    // 2) Resultados por registro (para mostrar lo subido)
-    require_once __DIR__ . '/../models/ResultadoModel.php';
+    // Añadimos los resultados subidos a cada registro
     $resultadoM = new ResultadoModel($pdo);
-    $resultadosPorRegistro = [];
-    foreach ($registros as $r) {
-        $resultadosPorRegistro[(int)$r['id']] = $resultadoM->porRegistro((int)$r['id']);
+
+    foreach ($registros as &$r) {
+        $r['resultados'] = $resultadoM->porRegistro($r['id']);
     }
+    unset($r);
 
     include __DIR__ . '/../../templates/estudiante/mis_registros.php';
     break;

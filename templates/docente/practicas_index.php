@@ -15,13 +15,9 @@
     <td><?= htmlspecialchars($p['fecha_limite'] ?? '-') ?></td>
     <td><?= htmlspecialchars($p['fecha_fin'] ?? '-') ?></td>
     <td>
-  <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=postulantes&practica_id=<?= (int)$p['id'] ?>">
-    Ver postulantes
-  </a>
+  <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=postulantes&practica_id=<?= (int)$p['id'] ?>">Ver postulantes</a>
   &nbsp;|&nbsp;
-  <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=resultados_practica&practica_id=<?= (int)$p['id'] ?>">
-    Ver resultados
-  </a>
+  <a href="/Grupo2_Etapa2Proy_SGPP-UES/public/index.php?page=resultados_practica&practica_id=<?= (int)$p['id'] ?>">Ver resultados</a>
 </td>
   </tr>
   <?php endforeach; ?>

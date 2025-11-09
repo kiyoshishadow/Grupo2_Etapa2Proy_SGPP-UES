@@ -13,29 +13,40 @@ class ResultadoModel {
 
     // Resultados por registro (para que el estudiante vea lo que subió)
     public function porRegistro($registro_id){
-        $st = $this->pdo->prepare(
-            "SELECT id, registro_id, ruta_archivo, comentario, fecha_subida
-             FROM resultado WHERE registro_id=? ORDER BY fecha_subida DESC"
-        );
-        $st->execute([$registro_id]);
-        return $st->fetchAll();
-    }
+    $sql = "
+        SELECT 
+            r.id,
+            r.registro_id,
+            r.ruta_archivo,
+            r.comentario,
+            r.fecha_subida,
+            e.calificacion,
+            e.observacion,
+            e.fecha_eval
+        FROM resultado r
+        LEFT JOIN evaluacion e ON e.resultado_id = r.id
+        WHERE r.registro_id = ?
+        ORDER BY r.fecha_subida DESC
+    ";
+    $st = $this->pdo->prepare($sql);
+    $st->execute([$registro_id]);
+    return $st->fetchAll();
+}
 
     // Resultados por práctica (para que el docente revise)
    public function porPractica($practica_id){
     $sql = "SELECT 
-                r.id,
+                r.id AS resultado_id,
                 r.registro_id,
-                r.nota,
-                r.observaciones,
-                r.fecha,
+                r.ruta_archivo,
+                r.comentario,
+                r.fecha_subida,
                 e.nombre_completo AS estudiante
             FROM resultado r
             JOIN registro_practica rp ON rp.id = r.registro_id
-            JOIN estudiante e ON e.id = rp.estudiante_id
+            JOIN estudiante e       ON e.id = rp.estudiante_id
             WHERE rp.practica_id = ?
-            ORDER BY r.fecha DESC";
-
+            ORDER BY r.fecha_subida DESC";
     $st = $this->pdo->prepare($sql);
     $st->execute([$practica_id]);
     return $st->fetchAll();

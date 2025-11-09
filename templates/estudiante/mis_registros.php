@@ -19,6 +19,7 @@
       <th>Fecha de postulación</th>
       <th>Subir resultado</th>
       <th>Resultados enviados</th>
+      <th>Nota del docente</th>
     </tr>
 
     <?php foreach ($registros as $r): ?>
@@ -54,12 +55,31 @@
                   <?php if (!empty($it['comentario'])): ?>
                     — <?= htmlspecialchars($it['comentario']) ?>
                   <?php endif; ?>
+                  <br>
                   <small>(<?= htmlspecialchars($it['fecha_subida']) ?>)</small>
                 </li>
               <?php endforeach; ?>
             </ul>
           <?php endif; ?>
         </td>
+
+        <!-- ✅ NOTA DEL DOCENTE -->
+        <td>
+          <?php
+          $evals = $evaluaciones[(int)$r['id']] ?? [];
+          if (empty($evals)):
+          ?>
+            <em>Aún sin calificación</em>
+          <?php else: 
+            // tomar la última calificación
+            $ultima = $evals[0];
+          ?>
+            <strong><?= htmlspecialchars($ultima['calificacion']) ?></strong><br>
+            <small><?= htmlspecialchars($ultima['observacion']) ?></small><br>
+            <small><em><?= htmlspecialchars($ultima['fecha_eval']) ?></em></small>
+          <?php endif; ?>
+        </td>
+
       </tr>
     <?php endforeach; ?>
 

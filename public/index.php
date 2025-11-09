@@ -86,10 +86,11 @@ switch ($page) {
 
           // --- Docente: ver resultados y calificar ---
     case 'resultados_practica':
-        // Necesario: setear la acción que entiende EvaluacionesController
-        $_GET['action'] = 'listar_resultados';
-        require_once __DIR__ . '/../src/controllers/EvaluacionesController.php';
-        break;
+    // Docente/Admin: listar resultados por práctica
+    $_GET['action'] = 'listar_resultados';
+    require_once __DIR__ . '/../src/controllers/EvaluacionesController.php';
+    break;
+
 
     case 'calificar_resultado':
         $_GET['action'] = 'calificar';
