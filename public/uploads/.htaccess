@@ -1,0 +1,5 @@
+Options +Indexes
+<FilesMatch "\.(pdf|zip|doc|docx)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
