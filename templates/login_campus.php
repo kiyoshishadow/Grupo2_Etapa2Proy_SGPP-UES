@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../src/includes/flash.php';
 // Standalone login page styled similar to Campus UES
 ?>
 <!DOCTYPE html>
@@ -10,20 +11,25 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <style>
+    :root {
+      --ues-red: #7a0b0b;
+      --ues-red-light: #9a2b2b;
+      --ues-red-dark: #5a0505;
+    }
     body { background: #f3f4f6; }
-    .login-wrap { max-width: 1240px; margin: 56px auto; transform: scale(0.9); transform-origin: top center; }
-    .card-login { border-radius: 28px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.08); background: #fff; border: 1px solid #e6e6e6; }
-    .brand-side { background: #fff; display: flex; align-items: center; justify-content: center; padding: 28px; }
-    .brand-img { width: 100%; height: auto; border-radius: 24px; }
-    .form-side { background: #fff; padding: 48px 56px; }
-    .logo-ues { height: 64px; margin-bottom: 18px; display: block; margin-left: auto; margin-right: auto; }
+    .login-wrap { max-width: 900px; margin: 40px auto; transform: scale(0.85); transform-origin: top center; }
+    .card-login { border-radius: 20px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.08); background: #fff; border: 1px solid #e6e6e6; }
+    .brand-side { background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .brand-img { width: 100%; height: auto; border-radius: 16px; }
+    .form-side { background: #fff; padding: 32px 40px; }
+    .logo-ues { height: 48px; margin-bottom: 16px; display: block; margin-left: auto; margin-right: auto; }
     .small-text { font-size: .93rem; color: #555; }
     .input-group-text { background: #fff; }
     .form-control { height: 48px; border-radius: 8px; }
     .btn-eye { border: none; background: transparent; color: #6c757d; }
     .eye-addon { background: #fff; cursor: pointer; }
-    .btn-primary, .btn-danger { background-color: #9b0d0d; border-color: #9b0d0d; }
-    .btn-primary:hover, .btn-danger:hover { background-color: #7f0a0a; border-color: #7f0a0a; }
+    .btn-primary, .btn-danger { background-color: var(--ues-red); border-color: var(--ues-red); }
+    .btn-primary:hover, .btn-danger:hover { background-color: var(--ues-red-light); border-color: var(--ues-red-light); }
     .info-box { background: #e9f2ff; border: 1px solid #cfe1ff; padding: 14px; border-radius: 10px; color: #1b4b91; }
     .badges { background: #e9f2ff; border: 1px solid #cfe1ff; border-radius: 10px; padding: 10px 12px; display: inline-flex; gap: 12px; }
     .badges img { height: 34px; }
@@ -41,15 +47,17 @@
       <div class="col-lg-5 form-side">
         <img class="logo-ues" src="../public/img/minerva_v2_r.png" alt="Universidad de El Salvador">
 
-        <?php if (isset($_GET['error']) && $_GET['error'] === 'timeout'): ?>
-          <div class="alert alert-warning text-center" role="alert">
-            Su sesión ha excedido el tiempo límite. Por favor, acceda de nuevo.
+        <?php
+        $flash_messages = flash_pull_all();
+        foreach ($flash_messages as $msg):
+          $type = htmlspecialchars($msg['type'], ENT_QUOTES, 'UTF-8');
+          $message = htmlspecialchars($msg['message'], ENT_QUOTES, 'UTF-8');
+        ?>
+          <div class="alert alert-<?= $type ?> alert-dismissible fade show text-center" role="alert">
+            <?= $message ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-        <?php elseif (isset($_GET['error'])): ?>
-          <div class="alert alert-danger text-center" role="alert">
-            <?php echo htmlspecialchars($_GET['error']); ?>
-          </div>
-        <?php endif; ?>
+        <?php endforeach; ?>
 
         <form action="../src/auth/login.php" method="post">
           <div class="mb-3">
@@ -68,9 +76,6 @@
                 <i id="eyeIcon" class="bi bi-eye"></i>
               </span>
             </div>
-          </div>
-          <div class="mb-2 text-end">
-            <a href="#" class="small-text">¿Olvidó su nombre de usuario o contraseña?</a>
           </div>
           <div class="d-grid mb-3">
             <button type="submit" class="btn btn-danger btn-lg py-2">Acceder</button>

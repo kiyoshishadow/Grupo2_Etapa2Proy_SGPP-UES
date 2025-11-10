@@ -40,7 +40,7 @@ switch ($page) {
                 break;
             case 'Docente':
                 check_session(['Docente']);
-                include __DIR__ . '/../templates/docente/dashboard.php';
+                require_once __DIR__ . '/../src/controllers/DocenteDashboardController.php';
                 break;
             case 'Estudiante':
                 check_session(['Estudiante']);
@@ -52,30 +52,71 @@ switch ($page) {
         }
         break;
 
-    // --- Docente: CRUD Prácticas ---
-    case 'docente_practicas':
-        // Internamente, PracticasController decide la acción por ?action=
-        require_once __DIR__ . '/../src/controllers/PracticasController.php';
+    // --- Rutas Principales ---
+
+    case 'evaluar':
+        require_once __DIR__ . '/../src/controllers/EvaluacionController.php';
         break;
 
-    // --- Estudiante: Registro y resultados ---
-    case 'practicas_disponibles':
-        $_GET['action'] = 'lista';
-        require_once __DIR__ . '/../src/controllers/RegistrosController.php';
+    case 'docente_reportes':
+        check_session(['Docente']);
+        require_once __DIR__ . '/../src/controllers/DocenteReportesController.php';
         break;
 
-    case 'inscribir':
-        $_GET['action'] = 'inscribir';
-        require_once __DIR__ . '/../src/controllers/RegistrosController.php';
+    case 'docente_informes':
+        check_session(['Docente']);
+        require_once __DIR__ . '/../src/controllers/DocenteInformesController.php';
+        break;
+
+    case 'docente_avances':
+        check_session(['Docente']);
+        require_once __DIR__ . '/../src/controllers/DocenteAvancesController.php';
+        break;
+
+    case 'admin_reportes_expedientes':
+        require_once __DIR__ . '/../src/controllers/AdminReportesController.php';
+        break;
+
+    case 'admin_usuarios':
+        require_once __DIR__ . '/../src/controllers/AdminUsuariosController.php';
+        break;
+
+    case 'admin_expedientes':
+        require_once __DIR__ . '/../src/controllers/ExpedientesController.php';
+        break;
+
+    case 'admin_practicas':
+        require_once __DIR__ . '/../src/controllers/AdminPracticasController.php';
+        break;
+
+    case 'estudiante_elegir_docente':
+        check_session(['Estudiante']);
+        require_once __DIR__ . '/../src/controllers/EstudianteElegirDocenteController.php';
         break;
 
     case 'mis_registros':
+        check_session(['Estudiante']);
         $_GET['action'] = 'mis_registros';
         require_once __DIR__ . '/../src/controllers/RegistrosController.php';
         break;
 
-    case 'subir_resultado':
-        require_once __DIR__ . '/../src/controllers/ResultadosController.php';
+    case 'subir_informe':
+        check_session(['Estudiante']);
+        require_once __DIR__ . '/../src/controllers/InformeMensualController.php';
+        break;
+
+    case 'ver_calificaciones':
+        check_session(['Estudiante']);
+        require_once __DIR__ . '/../src/controllers/EstudianteCalificacionesController.php';
+        break;
+
+    case 'ver_progreso':
+        check_session(['Estudiante']);
+        require_once __DIR__ . '/../src/controllers/EstudianteProgresoController.php';
+        break;
+
+    case 'descargar_archivo':
+        require_once __DIR__ . '/../src/controllers/FileController.php';
         break;
 
     default:

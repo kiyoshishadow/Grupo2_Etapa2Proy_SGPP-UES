@@ -1,86 +1,163 @@
+:root {
+  --ues-red: #7a0b0b;
+  --ues-red-light: #9a2b2b;
+  --ues-red-dark: #5a0505;
+  --ues-neutral: #f5f5f7;
+  --ues-border: #e4e6eb;
+  --ues-text-muted: #6c757d;
+  --ues-card-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06);
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+  background-color: var(--ues-neutral);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #212529;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+.navbar-ues {
+  background: linear-gradient(90deg, var(--ues-red) 0%, var(--ues-red-dark) 100%);
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding-top: 30px;
-    min-height: 70px;
-    border-bottom: #0779e4 3px solid;
+.navbar-ues .navbar-brand {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-header a {
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 16px;
+.navbar-ues .navbar-brand img {
+  height: 32px;
+  width: auto;
 }
 
-header ul {
-    padding: 0;
-    margin: 0;
+.navbar-ues .nav-link {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  font-size: 0.9rem;
 }
 
-header li {
-    float: left;
-    display: inline;
-    padding: 0 20px 0 20px;
+.navbar-ues .btn {
+  padding: 0.25rem 0.75rem !important;
+  font-size: 0.85rem;
 }
 
-header #branding {
-    float: left;
+.navbar-ues .dropdown-menu {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: var(--ues-card-shadow);
 }
 
-header #branding h1 {
-    margin: 0;
+.main-wrapper {
+  background-color: var(--ues-neutral);
 }
 
-header nav {
-    float: right;
-    margin-top: 10px;
+.page-hero {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--ues-card-shadow);
+  border: 1px solid var(--ues-border);
 }
 
-.login-container {
-    width: 300px;
-    margin: 100px auto;
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.page-hero .breadcrumb {
+  margin-bottom: .5rem;
 }
 
-.login-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
+.card-ues {
+  border: 1px solid var(--ues-border);
+  border-radius: 1rem;
+  box-shadow: var(--ues-card-shadow);
+  background-color: #fff;
 }
 
-.login-container input[type='text'], .login-container input[type='password'] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+.card-ues .card-header {
+  border-bottom: 1px solid var(--ues-border);
+  background-color: rgba(122, 11, 11, 0.06);
+  font-weight: 600;
 }
 
-.login-container input[type='submit'] {
-    width: 100%;
-    padding: 10px;
-    background: #333;
-    color: #fff;
-    border: 0;
-    cursor: pointer;
+.card-ues .badge {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.7rem;
 }
 
-.error {
-    color: red;
-    text-align: center;
+.btn-primary {
+  background-color: var(--ues-red);
+  border-color: var(--ues-red);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--ues-red-light);
+  border-color: var(--ues-red-light);
+}
+
+.btn-outline-primary {
+  color: var(--ues-red);
+  border-color: var(--ues-red);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--ues-red);
+  color: #fff;
+}
+
+.btn-outline-danger {
+  border-width: 1.5px;
+}
+
+.flash-container .alert {
+  border-radius: .85rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--ues-card-shadow);
+}
+
+.summary-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--ues-border);
+  box-shadow: var(--ues-card-shadow);
+}
+
+.summary-card h6 {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ues-text-muted);
+}
+
+.summary-card .display-6 {
+  font-weight: 600;
+}
+
+.table-responsive {
+  border-radius: 1rem;
+  border: 1px solid var(--ues-border);
+  box-shadow: var(--ues-card-shadow);
+}
+
+.table thead th {
+  border-top: none;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(122, 11, 11, 0.03);
+}
+
+.footer-ues {
+  background: var(--ues-red-dark);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-ues a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.footer-ues a:hover {
+  color: #fff;
 }
